@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crowd Monitoring System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #3772d7);
+            text-align: center;
+            display:flex;
+            color: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        input, button {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        img {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+        }
+
+        #stopAlarmButton {
+            padding: 12px 25px;
+            margin-top: 20px;
+            background-color: #ff4444;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        #stopAlarmButton:hover {
+            background-color: #e60000;
+        }
+
+        footer {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+        }
+    </style>
+    <script>
+        function stopAlarm() {
+            fetch('/stop_alarm', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Crowd Monitoring System</h1>
+    <form method="POST">
+        <label for="max_people">Enter Overcrowding Threshold:</label>
+        <input type="number" id="max_people" name="max_people" placeholder="e.g., 50" required>
+        <button type="submit">Start Monitoring</button>
+    </form>
+    <h2>Live Feed</h2>
+    <img src="{{ url_for('detection') }}" width="640" height="480">
+    <div>
+        <button id="stopAlarmButton" onclick="stopAlarm()">Stop Alarm</button>
+    </div>
+    <footer>
+        &copy; 2025 Crowd Monitoring System.
+    </footer>
+</body>
+</html>
