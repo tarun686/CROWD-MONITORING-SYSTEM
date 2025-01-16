@@ -55,5 +55,4 @@ This Flask application uses the YOLOv8 object detection model to monitor a live 
 - If the person count exceeds the specified limit, an alarm sound plays.
 - Use the `/stop_alarm` route to stop the alarm.
 
-## File Structure
 
